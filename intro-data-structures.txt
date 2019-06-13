@@ -1,0 +1,12 @@
+let line = ['Vivian', 'Ava', 'Josh', 'Patrick', 'Mike'];
+line.push('Mary')
+line.indexOf('Josh')
+line.indexOf('Emily')  //returns -1
+line.splice(1, 0, 'Melissa')
+line.splice(4, 1
+
+2. Provide another real-world example that you can model using a data structure.
+	- Another example that can easily be modeled using a data structure would be a grocery list.
+
+3. How would your data structure allow developers to access and manipulate the data?
+	- This structure could be easily manipulated, much like the first example; items can be added or removed, if needed, you can total the number of things you are shopping for, etc.
