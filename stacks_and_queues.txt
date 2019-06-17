@@ -1,0 +1,57 @@
+1. The main difference between a stack and a queue is how entries are handled; stacks being last in, first out and queues being first in, first out.
+
+2. Stack and queues are similar in that are both data structures that allow access to one elemenet at a time.
+
+3. To implement UNDO/REDO, I would want to use a stack; it is in effect using pop and push, respectively.  To UNDO, we want the last thing to be removed; with REDO, we want the last thing to be added.
+
+
+1.
+function reverse(original) {
+	let stack = [];
+	for (let i = 0; i < original.length; i++) {
+	  stack.push(original[i]); 
+	}
+	let reversed = '';
+	while(stack.length > 0) {
+	  reversed += stack.pop();
+	}
+	return reversed;
+}
+
+2.
+class Stack {
+  constructor() {
+    this.pop = function(queue) {
+      let newQueue = [];
+      let deleteItem = [];
+
+      for(let i = 0; i < queue.length; i++) {
+        if(i == queue.length - 1) {
+          deleteItem.push(queue[i]);
+        } else {
+          newQueue.push(queue[i]);
+        }  
+      }
+      return deleteItem;
+    }
+  }	
+}
+
+let newStack = new Stack();
+
+3.
+class Queue {
+  constructor() {
+    this.queue = []
+  }
+
+  enqueue(element) {
+    this.queue.push(element)
+  }
+
+  dequeue() {
+    this.queue.shift()
+  }
+}
+
+let queue = new Queue;
