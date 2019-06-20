@@ -1,0 +1,80 @@
+1. Pros of using a linked list: 
+  -each node is memory independent, making memory utilization more efficient.
+  -inserting and deleting elements is 
+  Cons of linked list:
+  -have to access linearly, no random access allowed.
+  -utilization of memory for next and previous reference elements.
+
+2. In reading about a linked list, it reminded me of a scavenger hunt.  Each node would be a clue pointing you to the next node; you cannot access a clue randomly, but only linearly.
+
+1. 
+FUNCTION push(element)
+CREATE node
+SET node.value TO element
+SET node.next TO null
+
+IF the head node does not exist
+ THEN SET head to node
+ELSE
+ SET current to head
+ SET current.next to node
+END IF
+END FUNCTION
+
+This code does not have a while loop to move from one node to the next.
+
+linkedList.push = function(element) {
+  let node = {
+    value: element,
+    next: null;
+  }
+
+  if(!this.head) {
+    this.head = node;
+    return this.head;
+  } else {
+      let current = this.head;
+      while(current.next) {
+        current = current.next;
+      }
+      current.next = node;
+      return current.next;
+  }
+}
+
+2.  
+LinkedList.prototype.removeDuplicates = function(){
+    let current = this.head, arr = [], prev,next;
+    while(current.next !== null){
+        if (arr.indexOf(current.value) === -1){
+            arr.push(current.value);
+        }else{
+            if (prev){
+                prev.next = current.next;    
+            }                                            
+        }
+        prev = current;
+        current  = current.next;                    
+    }
+    if (current.next == null){
+        if (arr.indexOf(current.value) != -1){
+            prev.next = null;
+        }
+    }
+};
+
+  3.
+  LinkedList.prototype.reverse= function() {
+    var previousNode = null;
+    var thisNode = this.head;
+    var nextNode;
+
+    while (thisNode) {
+      nextNode = thisNode.next;
+      thisNode.next = previousNode;
+      previousNode = thisNode;
+      thisNode = nextNode;
+    }
+
+    this.head = previousNode;
+  }
