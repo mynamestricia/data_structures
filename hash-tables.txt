@@ -1,0 +1,189 @@
+1.
+A hash table is a data structure that stores key value pairs.
+
+2.
+Hashing is the process of converting the arbitrary data into the fixed legth code using the hasing function.
+
+3.
+A hash table stores data in key-value pairs.
+
+4.
+Hash tables and objects are similar, but hash tables have the advantage of constant time lookup and its ability to correlate a key with a native object attribute.
+
+5.
+What would I use?
+
+-List of pets and unique names : hash table
+- name/age/birthday of best friend : object
+- name and location of companies within a city : hash table
+- books checked out : hash table
+- primary/secondary numbers for a contact : object
+
+PROGRAMMING
+
+1.
+let hash = (string, max) => {
+	let hash = 0;
+	for (let i = 0; i < string.length; i++) {
+	  hash += string.charCodeAt(i);
+	}
+	return hash % max;
+};
+
+let HashTable = function() {
+	let storage = [];
+	let storageLimit = 999999999;
+
+	this.add = function(key, value) {
+	  let index = hash(key, storageLimit);
+	  if (storage[index] === undefined) {
+	    storage[index] = [
+	      [key, value]
+	      ];
+	  } else {
+	    let inserted = false;
+	    for (let i = 0; i < storage[index].length; i++) {
+	      if(storage[index][i][0] === key) {
+	        storage[index][i][1] = value;
+	        inserted = true
+	      }
+	    }
+	    if(inserted === false) {
+	      storage[index].push([key, value]);
+	    }
+	  }
+
+	  this.find = function(key) {
+	    var index = hash(key, storageLimit);
+	    if(!storage[index]) {
+	      console.log('Customer not found.')
+	    } else {
+	      for (let i = 0; i < storage[index].length; i++) {
+	        if(storage[index][i][0] === key) {
+	          return storage[index][i][1];
+	          }	      
+	        }
+	    }
+	  }
+	}
+}
+
+let customerDatabase = new HashTable();
+customerDatabase.add(3525551122, {name: 'Fred', address: '1 Gilead Lane'});
+customerDatabase.add(4075553322, {name: 'Offred', address: '1 Revolution Drive'});
+
+console.log(customerDatabase.find(3525551122));
+console.log(customerDatabase.find(3525552222));
+
+2. 
+let hash = (string,max) =>{
+  let hash= 0
+  for(let i=0; i<string.length;i++){
+    hash += string.charCodeAt(i)
+  }
+  return hash % max;
+};
+
+let HashTable = function(){
+ let storage = [];
+ const storageLimit= 9999999;
+
+
+ this.add = function(key, value) {
+    let index = hash(key, storageLimit);
+    if (storage[index] === undefined) {
+      storage[index] = [
+        [key, value]
+      ];
+    } else {
+      let inserted = false;
+      for (let i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+          storage[index][i][1] = value;
+          inserted = true;
+        }
+      }
+      if (inserted === false) {
+        storage[index].push([key, value]);
+      }
+    }
+  };
+  
+  this.find = function(key) {
+    let index = hash(key, storageLimit);
+    if (!storage[index]) {
+      console.log('Item not in stock.');
+    } else {
+      for (let i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+          return storage[index][i][1];
+        }
+      }
+    }
+  };
+
+};
+
+let inventory = new HashTable();
+inventory.add('Dog food', 500);
+inventory.add('Dog toys', 100);
+
+console.log(inventory.find('Dog food'));
+console.log(inventory.find('Dog leash'));
+
+3.
+let hash = (string,max) =>{
+  let hash= 0
+  for(let i=0; i<string.length;i++){
+    hash += string.charCodeAt(i)
+  }
+  return hash % max;
+};
+
+let HashTable = function(){
+ let storage = [];
+ const storageLimit= 9999999;
+
+
+ this.add = function(publisher, date) {
+    let index = hash(publisher, storageLimit);
+    if (storage[index] === undefined) {
+      storage[index] = [
+        [publisher, date]
+      ];
+    } else {
+      let inserted = false;
+      for (let i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === publisher) {
+          storage[index][i][1] = date;
+          inserted = true;
+        }
+      }
+      if (inserted === false) {
+        storage[index].push([publisher, date]);
+      }
+    }
+  };
+  
+  this.find = function(publisher) {
+    let index = hash(publisher, storageLimit);
+    if (!storage[index]) {
+      console.log('Item not found.');
+    } else {
+      for (let i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === publisher) {
+          return storage[index][i][1];
+        }
+      }
+    }
+  };
+
+};
+
+let news = new HashTable();
+news.add('Transfiguration Today', 2006);
+news.add('Fantastic Beasts', 1949);
+
+console.log(news.find('Fantastic Beasts'));
+console.log(news.find('Transfiguration Today'));
+console.log(news.find('History of Magic'));
