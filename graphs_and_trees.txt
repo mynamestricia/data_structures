@@ -1,0 +1,239 @@
+1.
+  A binary tree is a data structure consisting of nodes.  Binary trees are unique to other trees in that each node can have only two child nodes.
+
+2.
+  Heuristics are guesses to solve problems in a shorter period of time, but may sacrifice accuracy.
+
+3.
+  Another problem that requires the use of heuristics would be the traveling salesman problem.
+
+4.
+  The difference between a depth-first and breadth-first search is how they search -- a depth-first goes top to bottom, a breadth-first goes left to right.
+
+5.
+  An undirected, a-cyclic, unweighted graph is a graph that has no set director, doesn't form loops, and has no assigned cost of value for travel between nodes.  
+
+6.
+  A binary search tree is directed, a-cyclic, and unweighted.
+
+PROGRAMMING
+
+1. 
+  To determine if a value is present in a binary search tree, we start at the root and compare the value to the root value.  If it matches, it's present.  If it's lower, we travel down the left side; if it's higher, we travel down the right.
+
+class Node {
+  constructor(data, left = null, right = null) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  add(data) {
+    const node = this.root;
+    if (node === null) {
+      this.root = new Node(data);
+      return;
+    } else {
+      const searchTree = function(node) {
+        if (data < node.data) {
+          if (node.right === null) {
+            node.right = new Node(data);
+            return;
+          } else if (node.right !== null) {
+            return searchTree(node.right);
+          }
+        } else if (data > node.data) {
+          if (node.left === null) {
+            node.left = new Node(data);
+            return;
+          } else if (node.left !== null) {
+            return searchTree(node.left);
+          }
+        } else {
+          return null;
+        }
+      };
+      return searchTree(node);
+    }
+  }
+  find(data) {
+    let current = this.root;
+    while (current.data !== data) {
+ 
+      if (data < current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+      if (current === null) {
+        return null;
+      }
+    }
+    return current;
+}
+  found(data) {
+    let current = this.root;
+    while (current) {
+      if (data === current.data) {
+        return true;
+      }
+      if (data < current.data) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    return false;
+  }
+  
+}
+
+const test = new BinarySearchTree();
+
+test.add(21);
+test.add(7);
+test.add(3);
+test.add(15);
+test.add(2);
+
+console.log(test.found(21));
+console.log(test.found(99));
+console.log(test.found(1));
+console.log(test.found(17));
+
+2.
+  To determine the distance between two nodes, we'd locate the Lowest Common Ancestor and then determine the distance between the LCA and each node.
+
+class Node {
+  constructor(data, left = null, right = null) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+ 
+   findDistanceBetweenNodes(root, num1, num2) {
+    var lowestCommonAncestor = this.findCommonAncestor(root, num1, num2);
+    var distanceNode1ToRoot = this.countAncestors(lowestCommonAncestor, num1);
+    var distanceNode2ToRoot = this.countAncestors(lowestCommonAncestor, num2);
+    var distanceRootToAncestor = this.countAncestors(root,lowestCommonAncestor);
+
+    var totalDistance = (distanceNode1ToRoot + distanceNode2ToRoot) - (2 * distanceRootToAncestor);
+    return ('The distance between those two nodes is' + ' ' + totalDistance);
+  }
+
+  findCommonAncestor(root, num1, num2) {
+    if (!root) return;
+    var lowestCommonAncestor = root.data;
+    if (num1 === lowestCommonAncestor || num2 === lowestCommonAncestor) {
+      return lowestCommonAncestor;
+    }
+    if (num1 < lowestCommonAncestor && num2 < lowestCommonAncestor) {
+      return this.findCommonAncestor(root.right, num1, num2);
+    }
+    if (num1 > lowestCommonAncestor && num2 > lowestCommonAncestor) {
+      return this.findCommonAncestor(root.left, num1, num2);
+    }
+    return lowestCommonAncestor;
+  }
+
+  countAncestors(root, data) {
+    let thisNode = this.root;
+    let nodeCount = 0;
+    while (thisNode) {
+      if (data === thisNode.data) {
+        return nodeCount;
+      }
+      thisNode = data < thisNode.data ? thisNode.right : thisNode.left;
+      nodeCount++;
+    }
+  }
+
+  getRootNode() {
+    return this.root;
+  }
+ add(data) {
+    const node = this.root;
+    if (node === null) {
+      this.root = new Node(data);
+      return;
+    } else {
+      const searchTree = function(node) {
+        if (data < node.data) {
+          if (node.right === null) {
+            node.right = new Node(data);
+            return;
+          } else if (node.right !== null) {
+            return searchTree(node.right);
+          }
+        } else if (data > node.data) {
+          if (node.left === null) {
+            node.left = new Node(data);
+            return;
+          } else if (node.left !== null) {
+            return searchTree(node.left);
+          }
+        } else {
+          return null;
+        }
+      };
+      return searchTree(node);
+    }
+  }
+
+  find(data) {
+    let current = this.root;
+    while (current.data !== data) {
+ 
+      if (data < current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+      if (current === null) {
+        return null;
+      }
+    }
+    return current;
+}
+
+   isPresent(data) {
+    let current = this.root;
+    while (current) {
+      if (data === current.data) {
+        return true;
+      }
+      if (data < current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+    return false;
+  }
+  
+}
+
+let test = new BinarySearchTree();
+
+test.add(1);
+test.add(2);
+test.add(3);
+test.add(4);
+test.add(5);
+test.add(6);
+test.add(7);
+
+let root = test.getRootNode();
+console.log(test.findDistanceBetweenNodes(root, 1, 7));
+console.log(test.findDistanceBetweenNodes(root, 7, 2));
