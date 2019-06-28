@@ -83,9 +83,9 @@ class BinarySearchTree {
         return true;
       }
       if (data < current.data) {
-        current = current.left;
-      } else {
         current = current.right;
+      } else {
+        current = current.left;
       }
     }
     return false;
@@ -103,8 +103,9 @@ test.add(2);
 
 console.log(test.found(21));
 console.log(test.found(99));
-console.log(test.found(1));
+console.log(test.found(15));
 console.log(test.found(17));
+console.log(test.found(2));
 
 2.
   To determine the distance between two nodes, we'd locate the Lowest Common Ancestor and then determine the distance between the LCA and each node.
